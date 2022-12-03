@@ -25,7 +25,6 @@ with open('./aoc-3/rucksacks.txt') as f:
         if (i+1) % 3 == 0 :
             groups.append(temp)
             temp=[]
-    getCommon(groups[0])
     badges=[getCommon(b) for b in groups]
     badgesvalue=[charvalue.get(i[0]) for i in badges]
     result2=sum(badgesvalue)
