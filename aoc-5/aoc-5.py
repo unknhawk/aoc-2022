@@ -73,7 +73,7 @@ def stacksToString(s):
 import copy
 with open('./aoc-5/crates.txt') as f:
     movements=[ [m.split(" ")[0:2],m.split(" ")[2:4],m.split(" ")[4:6]] for m in f.read().split("\n") if m.__contains__("m")]
-    restrictedmov=movements[0:2]
+    #restrictedmov=movements[0:2]
     f.seek(0)
     stacks=[[s for s in s.split(",")] for s in f.read().split("\n") if  s.__contains__("[") ]
     
