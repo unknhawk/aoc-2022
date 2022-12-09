@@ -8,7 +8,7 @@ def hasAllDiff(s):
 
 with open('./aoc-6/signal.txt') as f:
     data= f.read()
-    for i in range(0,len(data)):
+    for i in range(0,len(data)+1):
         substr=data[i:(i+4)]
         if hasAllDiff(substr):
             break
