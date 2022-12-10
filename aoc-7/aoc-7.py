@@ -57,29 +57,5 @@ with open('./aoc-7/files.txt') as f:
             temp.append(sum)
     result2=min(temp)
 
-    # temp=0
-    # fs.sort(key=lambda x:x[1] )
-    # for dir in fs:
-    #     print(dir)
-    #     if temp>result2:
-    #         result2=temp
-    #         break
-    #     temp+=dir[1]
-
-
-
-
-
-    #             print("--",j[0],":",i[1],"+",j[1])
-    #             i[1]+=j[1]
-    #             print("----",i[1])
-
-    # sum=0
-    # for i in fs:
-    #     if i[1]>=100000:
-    #         sum+=i[1]
-    # result1=sum
-
-
     print("Result1 is:",result1)
     print("Result2 is:",result2)
