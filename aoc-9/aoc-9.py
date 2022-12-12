@@ -1,15 +1,14 @@
 import copy
-def moveHead(pos,d,i):
-    i=i
+def moveHead(pos,d):
     match d:
         case "R":
-            pos[1]+=i
+            pos[1]+=1
         case "L":
-            pos[1]-=i
+            pos[1]-=1
         case "U":
-            pos[0]+=i
+            pos[0]+=1
         case "D":
-            pos[0]-=i
+            pos[0]-=1
     return pos
 
 def moveTail(posH,posT):
@@ -57,11 +56,12 @@ with open('./aoc-9/movements.txt') as f:
          #print(cmd)
         direction=cmd[0]
         velocity=int(cmd.split()[1])
-        posH=moveHead(posH,direction,velocity)
+        for i in range(0,velocity):
+            posH=moveHead(posH,direction)
         for i in range(0,velocity):
             posT=moveTail(posH,posT)
             visited.append(copy.deepcopy(posT))
-        #print("H:",posH,"T:",posT)
+        print("H:",posH,"T:",posT)
     setVisited=set()
     for i in visited:
         setVisited.add(str(i[0])+","+str(i[1]))
