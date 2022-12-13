@@ -9,15 +9,36 @@ def find(map,c):
             pos=[map[i].index(c),i]
     return pos
 
-import os
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
+def init_screen():
+    stdscr = curses.initscr()
+    curses.nocbreak()
+    stdscr.keypad(False)
+    curses.echo()
+    if curses.has_colors():
+        curses.start_color()
+        curses.init_color(1,0,0,0)
+        curses.init_pair(1,1,0)
+        for i in range(2,12):
+            curses.init_color(i,(i-2)*100,1000-i*30,0)
+            curses.init_pair(i,i,0)
+    curses.curs_set(0)
+          
+    return stdscr
 
 def draw(map,frame):
-    cls()
-    print("Frame #",frame)
-    for i in map:
-        print(i)
+    stdscr.clear()
+    stdscr.addstr("Step: "+str(frame),curses.A_REVERSE)
+    stdscr.chgat(-1,curses.A_REVERSE)
+    
+    for i in range(0,y-1):
+        for j in range(0,x-1):
+            stdscr.move(i,j)
+            if map[i][j]=="E":
+                stdscr.addch(map[i][j],curses.color_pair(11))
+                continue
+            stdscr.addch(map[i][j],curses.color_pair( int( (ord(map[i][j])-96)/2.6 +2) ) )
+            
+    stdscr.refresh()
 
 def mapSurr(pos,valueMap,maskMap):
     directions={0:[0,-1],1:[1,0],2:[0,1],3:[-1,0]}
@@ -90,7 +111,7 @@ def shortestPath(start,end):
         valueMatrix=tempValue
         
         r+=1
-        #draw(matrix,r)
+        draw(matrix,r)
         print("+",end="")
         if r%50==0:
             print(" ",r)
@@ -98,6 +119,7 @@ def shortestPath(start,end):
             print(".",end="")
         if matrix[end[1]][end[0]]!="X":
             print("Yuk!")
+            time.sleep(2)
             break
     return r
     
@@ -109,7 +131,11 @@ x=len(map[0])
 y=len(map)
 pathResults=list()
 import copy
-#import time
+import time
+
+import curses
+stdscr=init_screen()
+
 
 result1=shortestPath(find(map,"S"),endpoint)
 print("Result1 is",result1)
@@ -121,3 +147,4 @@ for j in range(0,y):
 
 result2=min(pathResults)
 print("Result2 is",result2)
+curses.endwin()
