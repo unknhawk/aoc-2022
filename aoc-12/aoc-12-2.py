@@ -18,26 +18,26 @@ def init_screen():
         curses.start_color()
         curses.init_color(1,0,0,0)
         curses.init_pair(1,1,0)
-        for i in range(2,12):
-            curses.init_color(i,(i-2)*100,1000-i*30,0)
-            curses.init_pair(i,i,0)
+        for i in range(2,28):
+            curses.init_color(i,(i-2)*38,1000-i*15,0)
+            curses.init_pair(i,0,i)
     curses.curs_set(0)
           
     return stdscr
 
 def draw(map,frame):
     stdscr.clear()
-    stdscr.addstr("Step: "+str(frame),curses.A_REVERSE)
-    stdscr.chgat(-1,curses.A_REVERSE)
-    
+ 
     for i in range(0,y-1):
         for j in range(0,x-1):
             stdscr.move(i,j)
             if map[i][j]=="E":
                 stdscr.addch(map[i][j],curses.color_pair(11))
                 continue
-            stdscr.addch(map[i][j],curses.color_pair( int( (ord(map[i][j])-96)/2.6 +2) ) )
-            
+            stdscr.addch(map[i][j],curses.color_pair(ord(map[i][j])-95))
+    
+    stdscr.move(i+1,0)
+    stdscr.addstr("Step: "+str(frame),curses.A_REVERSE)
     stdscr.refresh()
 
 def mapSurr(pos,valueMap,maskMap):
